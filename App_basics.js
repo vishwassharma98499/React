@@ -68,6 +68,7 @@ const heading = React.createElement(
 // JSX is not html in js its js like syntax
 // JSX code transpiled(converted) before reaches js engine by parcel through BABEl ( inside parcel)
 // JSX attributes are in camel case , and className instead of class
+// inside JSX inside {} you can write any js code
 const JSXheading = (
   <h1 id="heading" className="jsxClass">
     "jsx heading"
@@ -89,15 +90,25 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const Title = () => (
   <h1 className="head" tabIndex="5">
-    react Title component
+    react Title component 🚀
   </h1>
 );
 
+const element = (
+  <h2 className="head" tabIndex="5">
+    react Title element 🚀
+  </h2>
+);
+
+const varJS = "js variable in jsx";
 // component composition
+//  <Title /> or you can use {Title()} or <title></title>
 const HeadingComponent = () => (
   <div id="container">
+    {element}
     <Title />
-    <h1>react functional component</h1>
+    <h2>{varJS}</h2>
+    <h1>react functional component 🚀</h1>
   </div>
 );
 
