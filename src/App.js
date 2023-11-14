@@ -31,7 +31,7 @@ ul unordered list , li is list in html
 
 // react hooks are normal js utility function
 // useState() - superpoweful react variable
-// useEffect() -
+// useEffect() - called after the render is done
 // when state variable changes react rerender the component
 
 // react use reconciliation algorithm (react fibre) from react16

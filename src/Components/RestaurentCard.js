@@ -2,8 +2,8 @@
 const RestaurentCard = (props) => {
   const { resData } = props;
   const id = resData.id;
-  console.log(`id: ${id}`);
-  console.log(`data: ${resData}`);
+  // console.log(`id: ${id}`);
+  // console.log(`data: ${resData}`);
   return (
     <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
       <img

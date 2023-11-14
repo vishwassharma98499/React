@@ -15,7 +15,7 @@ const Body = () => {
 
   // state variable(react variable)
   const [listOfRestaurents, setListOfRestaurents] = useState(resObjList);
-  const [listOfRestaurents2, setListOfRestaurents2] = useState(resObjList);
+
   return (
     <div className="body">
       <div className="filter">
@@ -24,17 +24,20 @@ const Body = () => {
           onClick={() => {
             {
               let finalList = {};
-
+              let resDataStr;
               Object.keys(listOfRestaurents).map((resObjKey) => {
-                let resDataStr = listOfRestaurents[resObjKey];
-                if (resDataStr.rating.score > 4) {
-                  finalList = { ...finalList, ...resDataStr };
+                resDataStr = listOfRestaurents[resObjKey];
+                let property = { [resObjKey]: {} };
+                if (resDataStr.rating.score > 4.5) {
+                  // resDataStr[resObjKey] = resDataStr
+                  property[resObjKey] = resDataStr;
+                  finalList = { ...finalList, ...property };
                 }
               });
 
               setListOfRestaurents(finalList);
-
-              console.log(listOfRestaurents2);
+              console.log(`all: ${JSON.stringify(listOfRestaurents)}`);
+              console.log(`updated: ${JSON.stringify(finalList)}`);
 
               // Object.keys(resObjList).map((resObjKey) => {
               //   let resDataStr = resObjList[resObjKey];
@@ -51,9 +54,9 @@ const Body = () => {
       </div>
       <div className="res-container">
         {Object.keys(listOfRestaurents).map((resObjKey) => {
-          console.log(
-            `resdata: ${JSON.stringify(listOfRestaurents[resObjKey])}`
-          );
+          // console.log(
+          //   `resdata: ${JSON.stringify(listOfRestaurents[resObjKey])}`
+          // );
           let resDataStr = listOfRestaurents[resObjKey];
           return <RestaurentCard key={resObjKey} resData={resDataStr} />;
         })}
