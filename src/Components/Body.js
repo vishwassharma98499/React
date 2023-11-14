@@ -15,6 +15,7 @@ const Body = () => {
 
   // state variable(react variable)
   const [listOfRestaurents, setListOfRestaurents] = useState(resObjList);
+  const [listOfRestaurents2, setListOfRestaurents2] = useState(resObjList);
   return (
     <div className="body">
       <div className="filter">
@@ -23,7 +24,7 @@ const Body = () => {
           onClick={() => {
             {
               let finalList = {};
-              setListOfRestaurents([]);
+
               Object.keys(listOfRestaurents).map((resObjKey) => {
                 let resDataStr = listOfRestaurents[resObjKey];
                 if (resDataStr.rating.score > 4) {
@@ -33,7 +34,7 @@ const Body = () => {
 
               setListOfRestaurents(finalList);
 
-              console.log(listOfRestaurents);
+              console.log(listOfRestaurents2);
 
               // Object.keys(resObjList).map((resObjKey) => {
               //   let resDataStr = resObjList[resObjKey];
