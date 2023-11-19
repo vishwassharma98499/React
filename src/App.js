@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import Error from "./Components/Error";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import RestaurentMenu from "./Components/RestaurentMenu";
 
 // two type of import export for default nothing for export by name use { } for import
 
@@ -33,21 +38,71 @@ ul unordered list , li is list in html
 // useState() - superpoweful react variable
 // useEffect() - called after the render is done
 // when state variable changes react rerender the component
+// create sztate variable on top , inside body never in for loop or if or in function
 
 // react use reconciliation algorithm (react fibre) from react16
 // react create a virtual DOM (represantation of actual DOM) or a represantation of actual dom and its nothing but just nested javascript object
 
 // Diff algorithm basically find out difference between updated and previous virtual DOM
 // React is doing effective DOM manipulation (because of virtual DOM using reconciliation algorithm)
+
+// Optional chaining is a process for querying and calling properties, methods, and subscripts on an optional that might currently be nil . If the optional contains a value, the property, method, or subscript call succeeds; if the optional is nil , the property, method, or subscript call returns nil .
+
+// shimmer ui: fake ui till api load
+
+// UseEffect()
+// first is method and second is the data
+// if no dependecy it called every time object renders, if there is dependency it is called everytime dependency changes
+
+// createBrowserRouter creates the configuration routes
+// RouterProvider provide the configuration to rendering
+
+//rafce and press enter in component class(shortcut)
+
+// function start with use in import fro m react is called hook(common convention)
+// useRouteerror() reads the error in path to display on page
+
+// link component is the replacement for ancht tag <a> which does not relod the page and rerender
+
+// TWO types of routing
+// client side routing
+// server side routing
+
 const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-      <Body />
+      <Outlet />
     </div>
   );
 };
 
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/About",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/restaurents/:resId",
+        element: <RestaurentMenu />,
+      },
+    ],
+    errorElement: <Error />,
+  },
+]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);
