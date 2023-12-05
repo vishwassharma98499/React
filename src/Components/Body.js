@@ -2,6 +2,7 @@ import RestaurentCard from "./RestaurentCard";
 import resObjList from "../utils/mockdata";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   //Object.keys(resObjList).map((resObjKey) => {
   //console.log(resObjList[resObjKey]);
@@ -16,12 +17,13 @@ const Body = () => {
   // first is method and second is the data
   // if no dependecy it called every time object renders, if there is dependency it is called everytime dependency changes
   useEffect(() => {
-    try{
+    try {
       fetchData();
-    } catch(ex){
-      console.log(ex)
+    } catch (ex) {
+      console.log(ex);
     }
-    
+    // return ()=> { };
+    // required to return  the code if page changes
   }, []);
 
   const fetchData = async () => {
@@ -41,6 +43,9 @@ const Body = () => {
   const [filteredRestaurent, setfilteredRestaurent] = useState(resObjList);
   const [searchText, setSearchText] = useState("");
   // conditional rendering
+
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus == false) return <h1>looks like you are offline</h1>;
 
   return listOfRestaurents.length == 0 ? (
     <Shimmer />

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
-import About from "./Components/About";
+//import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurentMenu from "./Components/RestaurentMenu";
+//import Grocery from "./Components/Grocery";
 
+// lazy loading, dynamic loading , dynamic import and used to load the component when required
+const Grocery = lazy(() => import("./Components/Grocery"));
+const About = lazy(() => import("./Components/About"));
 // two type of import export for default nothing for export by name use { } for import
 
 // Config driven UI: UI changes as per backend data
@@ -68,6 +72,13 @@ ul unordered list , li is list in html
 // client side routing
 // server side routing
 
+// CHUNKING or CODE SPLITTING , dynamic bundling, lazy loading all same name to chunk your application or split your code to
+// to minimize js file to load during bundling
+
+// to apply css is the SASS and SCSS
+// its scripting language that is compiled in CSS or writing CSS with extra features in CSS
+// material ui , bootstrap, chakra ui, ant design to built in components(buttons and all)
+
 const AppLayout = () => {
   return (
     <div className="app">
@@ -88,11 +99,23 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/About",
-        element: <About />,
+        element: (
+          <Suspense fallback={<h1>loading screen</h1>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<h1>loading screen</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
       {
         path: "/restaurents/:resId",
