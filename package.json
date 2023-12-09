@@ -5,7 +5,9 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "jest"
+    "test": "jest",
+     "dev": "TAILWIND_MODE=watch postcss -i tailwind.css -o build.css --watch",
+     "build": "postcss -i tailwind.css -o build.css --minify"
   },
   "author": "vishwas",
   "license": "ISC",
@@ -22,6 +24,6 @@
   },
   "browserslist": [
     "last 2 Chrome versions",
-    "last two firefox version"
+    "last 2 firefox version"
   ]
 }

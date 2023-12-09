@@ -78,6 +78,9 @@ ul unordered list , li is list in html
 // to apply css is the SASS and SCSS
 // its scripting language that is compiled in CSS or writing CSS with extra features in CSS
 // material ui , bootstrap, chakra ui, ant design to built in components(buttons and all)
+// tailwind vs code extention tailwind css intellicense
+
+// higher order component is a function that takes a component as input enhances it and returns a back component
 
 const AppLayout = () => {
   return (
@@ -118,7 +121,7 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/restaurents/:resId",
+        path: "/restaurants/:resId",
         element: <RestaurentMenu />,
       },
     ],
