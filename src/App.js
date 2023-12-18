@@ -7,11 +7,8 @@ import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurentMenu from "./Components/RestaurentMenu";
-//import Grocery from "./Components/Grocery";
-
-// lazy loading, dynamic loading , dynamic import and used to load the component when required
-const Grocery = lazy(() => import("./Components/Grocery"));
-const About = lazy(() => import("./Components/About"));
+import { useEffect, useState, UserContext } from "react";
+import { Provider } from "react-redux";
 // two type of import export for default nothing for export by name use { } for import
 
 // Config driven UI: UI changes as per backend data
@@ -82,12 +79,39 @@ ul unordered list , li is list in html
 
 // higher order component is a function that takes a component as input enhances it and returns a back component
 
+// other component controlling like state and all than its controlled component ex state of show hide restaurent menu
+
+// prop drilling: pipe data through ui tree to components that use it (parent to child component data pass) use context instead
+
+// ccontext solve prop drilling , keep data in central place
+
+//import Grocery from "./Components/Grocery";
+
+// lazy loading, dynamic loading , dynamic import and used to load the component when required
+const Grocery = lazy(() => import("./Components/Grocery"));
+const About = lazy(() => import("./Components/About"));
+
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  //authentication
+  useEffect(() => {
+    // Make an API call and send username and password
+    const data = {
+      name: "Akshay Saini",
+    };
+    setUserName(data.name);
+  }, []);
+
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
