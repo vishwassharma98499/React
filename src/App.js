@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
+import Cart from "./Components/Cart";
 //import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Error from "./Components/Error";
@@ -9,6 +10,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurentMenu from "./Components/RestaurentMenu";
 import { useEffect, useState, UserContext } from "react";
 import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 // two type of import export for default nothing for export by name use { } for import
 
 // Config driven UI: UI changes as per backend data
@@ -85,6 +87,14 @@ ul unordered list , li is list in html
 
 // ccontext solve prop drilling , keep data in central place
 
+// redux: way to manage data and store, we can not modify redux directly
+// can be done by dispatch action when button click and the function modify the redux card but modifiction does not done directly
+// button -> dispatch action -> reducer function -> modifies slice which update slice of redux store
+
+// from redux store we use selector to read data from store to display in the react component(phhenomenon is called subscribing to the store)
+
+// () =>handleAddItem() [callback function] mean function called on click.
+// handleAddItem() function will already called or call right away
 //import Grocery from "./Components/Grocery";
 
 // lazy loading, dynamic loading , dynamic import and used to load the component when required
@@ -102,15 +112,14 @@ const AppLayout = () => {
     };
     setUserName(data.name);
   }, []);
-
+  // <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+  //      </UserContext.Provider>
   return (
     <Provider store={appStore}>
-      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <div className="app">
-          <Header />
-          <Outlet />
-        </div>
-      </UserContext.Provider>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
     </Provider>
   );
 };
@@ -143,6 +152,10 @@ const appRouter = createBrowserRouter([
             <Grocery />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/restaurants/:resId",
